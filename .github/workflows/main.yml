@@ -1,0 +1,25 @@
+name: List S3 Buckets
+on:
+  push:
+    branches:
+      - main  # Adjust this based on your branch naming
+
+jobs:
+  list-s3-buckets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        env:
+          AWS_REGION: ap-south-1  # Replace with your AWS region
+        run: |
+          aws configure set region $AWS_REGION
+          aws configure set role_arn arn:aws:iam::179859935027:role/GlueRole
+          aws configure set credential_source Ec2InstanceMetadata
+
+      - name: List S3 Buckets
+        run: |
+          aws s3 ls
+
