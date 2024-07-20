@@ -17,7 +17,6 @@ jobs:
         run: |
           aws configure set region $AWS_REGION
           aws configure set role_arn arn:aws:iam::179859935027:role/GlueRole
-          aws configure set credential_source Ec2InstanceMetadata
 
       - name: List S3 Buckets
         run: |
