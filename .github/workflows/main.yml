@@ -7,18 +7,16 @@ on:
 jobs:
   list-s3-buckets:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Configure AWS Credentials
-        env:
-          AWS_REGION: ap-south-1  # Replace with your AWS region
+   steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: arn:aws:iam::179859935027:role/GlueRole #change to reflect your IAM role’s ARN
+      # Hello from AWS: WhoAmI
+      - name: Sts GetCallerIdentity
         run: |
-          aws configure set region $AWS_REGION
-          aws configure set role_arn arn:aws:iam::179859935027:role/GlueRole
+          aws sts get-caller-identity 
 
-      - name: List S3 Buckets
-        run: |
-          aws s3 ls
-
+      
