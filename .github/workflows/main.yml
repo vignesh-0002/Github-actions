@@ -31,3 +31,7 @@ jobs:
       - name: Sts GetCallerIdentity
         run: |
           aws sts get-caller-identity  
+
+      - name: List S3 Buckets
+        run: |
+          aws s3 ls
